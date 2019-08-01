@@ -23,7 +23,7 @@ const run = () => {
   bundler.on('bundled', () => {
     const runCode = `node ${Path.join(process.cwd(), '/dist/index.js')}`
 
-    if (!!process) childProcess.kill()
+    if (!!childProcess) childProcess.kill()
 
     childProcess = exec(runCode)
 
