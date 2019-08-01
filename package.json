@@ -1,6 +1,6 @@
 {
   "name": "parcelmon",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Cli tool for running node server through parcel",
   "bin": {
     "parcelmon": "dist/index.js"
