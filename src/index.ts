@@ -6,7 +6,7 @@ import Path from 'path'
 
 import { pipe, toString } from './utils'
 
-const entryFiles = [Path.join(__dirname, '../src/index.ts')]
+const entryFiles = [Path.join(process.cwd(), '/src/index.ts')]
 
 const options: ParcelOptions = {
   target: 'node',
@@ -18,14 +18,14 @@ const options: ParcelOptions = {
 const run = () => {
   const bundler = new Bundler(entryFiles, options)
 
-  let process: ChildProcess = null
+  let childProcess: ChildProcess = null
 
   bundler.on('bundled', () => {
-    const runCode = `node ${Path.join(__dirname, '../dist/index.js')}`
+    const runCode = `node ${Path.join(process.cwd(), '/dist/index.js')}`
 
-    if (!!process) process.kill()
+    if (!!process) childProcess.kill()
 
-    process = exec(runCode)
+    childProcess = exec(runCode)
 
     console.log('\nStdout 👇\n')
 
