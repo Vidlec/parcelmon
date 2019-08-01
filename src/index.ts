@@ -29,14 +29,14 @@ const run = () => {
 
     console.log('\nStdout 👇\n')
 
-    process.stdout.on(
+    childProcess.stdout.on(
       'data',
       pipe(
         toString,
         console.log,
       ),
     )
-    process.stderr.on(
+    childProcess.stderr.on(
       'data',
       pipe(
         toString,
