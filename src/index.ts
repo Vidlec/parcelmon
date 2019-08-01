@@ -2,26 +2,31 @@
 import chalk from 'chalk'
 import { ChildProcess, exec } from 'child_process'
 import Bundler, { ParcelOptions } from 'parcel-bundler'
-import Path from 'path'
+import { argv } from 'yargs'
 
 import { pipe, toString } from './utils'
 
-const entryFiles = [Path.join(process.cwd(), '/src/index.ts')]
+const entry = argv.entry as string
+const outDir = (argv.outDir as string) || './dist'
+
+const outputFile = `${outDir}/index.js`
 
 const options: ParcelOptions = {
   target: 'node',
+  outDir,
+  outFile: 'index.js',
   hmr: false,
   watch: true,
   minify: false,
 }
 
 const run = () => {
-  const bundler = new Bundler(entryFiles, options)
+  const bundler = new Bundler(entry, options)
 
   let childProcess: ChildProcess = null
 
   bundler.on('bundled', () => {
-    const runCode = `node ${Path.join(process.cwd(), '/dist/index.js')}`
+    const runCode = `node ${outputFile}`
 
     if (!!childProcess) childProcess.kill()
 
